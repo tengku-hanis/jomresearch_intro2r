@@ -52,26 +52,19 @@ str(iris) #base R
 glimpse(iris) #tidyverse
 
 
-# Read in external data
-diabetes <- read_csv("data/diabetes.csv")
-
-str(diabetes)
-glimpse(diabetes)
-
-
 # Operations on data frame ------------------------------------------------
 
 ## 1- Select/deselect columns and rows ----
-diabetes$Glucose[1:5]
-diabetes[1:5,c(1,2)]
-diabetes[1:5, "Glucose"]
-diabetes[1:5, -1]
+iris$Sepal.Length[1:5]
+iris[1:5,c(1,2)]
+iris[1:5, "Sepal.Length"]
+iris[1:5, -1]
 
-diabetes %>% 
-  select(Glucose, Pregnancies) %>% 
+iris %>% 
+  select(Sepal.Length, Sepal.Width) %>% 
   slice(1:5)
-diabetes %>% 
-  select(-Glucose, -Pregnancies) %>% 
+iris %>% 
+  select(-Sepal.Length, -Sepal.Width) %>% 
   slice(1:5)
 
 ## 2- Filter ----
@@ -82,27 +75,27 @@ iris %>%
   filter(Species == "setosa")
 
 ## 3- Mutate (transmute replace the variable) ----
-diabetes$Glucosex2 <- diabetes$Glucose * 2
+iris$Sepal.Lengthx2 <- iris$Sepal.Length * 2
 
-diabetes <- 
-  diabetes %>% 
-  mutate(Glucosex3 = Glucose * 3)
+iris <- 
+  iris %>% 
+  mutate(Sepal.Lengthx3 = Sepal.Length * 3)
 
-view(diabetes)
+view(iris)
 
 ## 4- Arrange ----
-head(diabetes[order(-diabetes$Pregnancies),], 10)
+head(iris[order(-iris$Sepal.Width),], 10)
 
-diabetes %>% 
-  arrange(desc(BloodPressure)) %>% 
+iris %>% 
+  arrange(desc(Petal.Length)) %>% 
   top_n(10)
 
 ## 5- Rename ----
-colnames(diabetes)[11] <- "hanis"
-head(diabetes)
+colnames(iris)[6] <- "HANIS"
+head(iris)
 
-diabetes %>% 
-  rename(tengku = hanis) %>% 
+iris %>% 
+  rename(TENGKU = HANIS) %>% 
   top_n(5)
 
 ## 6- tidy/long and wide format ----
