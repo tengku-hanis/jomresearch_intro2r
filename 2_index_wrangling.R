@@ -1,14 +1,20 @@
 ## ===========================================================================#
-## indexing and data wrangling in R
+## Indexing and data wrangling in R
 ## Author: Tengku Muhd Hanis Mokhtar
 ## Date: 21-10-2023
 ## https://jomresearch.netlify.app/
 ## ===========================================================================#
 
-# Packages 
+
+# Packages ----------------------------------------------------------------
+
 library(tidyverse)
+
 # Packages in tidyverse
 tidyverse_packages()
+
+
+# Data frame --------------------------------------------------------------
 
 # Data frame or tibble ----
 df <- data.frame(col1 = 1:5, col2 = letters[1:5])
@@ -22,7 +28,7 @@ df3 <- tribble(
   3,"c",
   4,"d",
   5,"e"
-)
+  )
 
 class(df); class(df2); class(df3)
 
@@ -30,30 +36,42 @@ class(df); class(df2); class(df3)
 df4 <- tribble(
   ~x,  ~y,
   "a", 1:3,
-  "b", 4:6
-)
+  "b", df
+  )
 
 df4; class(df4)
 
-# Data
-str(iris)
+
+# Datasets ----------------------------------------------------------------
+
+# Data in R
+data()
 iris
 
-glimpse(iris)
-as_tibble(iris)
+str(iris) #base R
+glimpse(iris) #tidyverse
 
-# Operations on data frame ----
+
+# Read in external data
+diabetes <- read_csv("data/diabetes.csv")
+
+str(diabetes)
+glimpse(diabetes)
+
+
+# Operations on data frame ------------------------------------------------
+
 ## 1- Select/deselect columns and rows ----
-iris$Sepal.Length[1:5]
-iris[1:5,c(1,2)]
-iris[1:5, "Sepal.Length"]
-iris[1:5, -1]
+diabetes$Glucose[1:5]
+diabetes[1:5,c(1,2)]
+diabetes[1:5, "Glucose"]
+diabetes[1:5, -1]
 
-iris %>% 
-  select(Sepal.Length, Sepal.Width) %>% 
+diabetes %>% 
+  select(Glucose, Pregnancies) %>% 
   slice(1:5)
-iris %>% 
-  select(-Sepal.Length, -Sepal.Width) %>% 
+diabetes %>% 
+  select(-Glucose, -Pregnancies) %>% 
   slice(1:5)
 
 ## 2- Filter ----
@@ -64,43 +82,39 @@ iris %>%
   filter(Species == "setosa")
 
 ## 3- Mutate (transmute replace the variable) ----
-iris$SL_minus10 <- iris$Sepal.Length - 10
+diabetes$Glucosex2 <- diabetes$Glucose * 2
 
-iris %>% 
-  mutate(SL_minus10 = Sepal.Length - 10)
+diabetes <- 
+  diabetes %>% 
+  mutate(Glucosex3 = Glucose * 3)
+
+view(diabetes)
 
 ## 4- Arrange ----
-head(iris[order(-iris$Sepal.Width),])
+head(diabetes[order(-diabetes$Pregnancies),], 10)
 
-iris %>% 
-  arrange(desc(Sepal.Length)) %>% 
+diabetes %>% 
+  arrange(desc(BloodPressure)) %>% 
+  top_n(10)
+
+## 5- Rename ----
+colnames(diabetes)[11] <- "hanis"
+head(diabetes)
+
+diabetes %>% 
+  rename(tengku = hanis) %>% 
   top_n(5)
 
-## 5- Group by (and calculate mean Sepal.Width for each species) ----
-doBy::summaryBy(Sepal.Width~Species, iris, FUN = mean) 
-
-iris %>% 
-  group_by(Species) %>% 
-  summarise(mean_SW = mean(Sepal.Width))
-
-## 6- Rename ----
-colnames(iris)[6] <- "hanis"
-head(iris)
-
-iris %>% 
-  rename(morris = hanis) %>% 
-  top_n(5)
-
-# tidy/long and wide format ----
+## 6- tidy/long and wide format ----
 ?fish_encounters
 fish_encounters
 
-## Long --> wide ----
+### 6.1- Long --> wide ----
 fish_wide <- fish_encounters %>%
   pivot_wider(names_from = station, values_from = seen)
 fish_wide
 
-## Wide --> tidy/long ----
+### 6.2- Wide --> tidy/long ----
 fish_tidy <- fish_wide %>% 
   pivot_longer(cols = 2:12, names_to = "monitor_station", values_to = "pass_through")
 fish_tidy

@@ -53,14 +53,24 @@ mt
 class(mt)
 dim(mt)
 
-## 3) Data frame ----
+## 3) Array ----
+ary <- array(1:10, dim = c(5, 2, 3))
+ary
+
+class(ary)
+dim(ary)
+
+## 4) Data frame ----
 class(iris) # existing data frame in R
+
 str(iris)
+class(iris)
 
 ## 4) List ----
 ls <- list(df = iris, 
            vec = vc,
-           mat = mt)
+           mat = mt,
+           arr = ary)
 
 class(ls)
 str(ls)
