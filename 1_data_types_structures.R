@@ -1,6 +1,9 @@
-# Data types and data structures in R
-# Tengku Muhd Hanis Mokhtar
-# https://jomresearch.netlify.app/
+## ===========================================================================#
+## Data types and data structures in R
+## Author: Tengku Muhd Hanis Mokhtar
+## Date: 21-10-2023
+## https://jomresearch.netlify.app/
+## ===========================================================================#
 
 
 # Data types --------------------------------------------------------------
