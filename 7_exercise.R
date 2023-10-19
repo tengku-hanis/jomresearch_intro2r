@@ -47,7 +47,7 @@ dat <-
 
 # Question 4 --------------------------------------------------------------
 
-# Make a scatter plot between variable UrbanPop (x axis) and Murder(y axis) - write a code using ggplot2 package.. 
+# Make a scatter plot between variable UrbanPop (x axis) and Murder(y axis) - write a code using ggplot2 package. 
 
 
 

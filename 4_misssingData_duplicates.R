@@ -27,6 +27,7 @@ dat / 0
 
 # Missing data ------------------------------------------------------------
 
+anyNA(diabetes)
 summary(diabetes)
 miss_var_summary(diabetes)
 
@@ -35,6 +36,7 @@ diabetes_cleaned <- na.omit(diabetes)
 
 # Duplicates --------------------------------------------------------------
 
+anyDuplicated(diabetes$id)
 ind <- duplicated(diabetes$id)
 diabetes[ind, ] #duplicates
 
