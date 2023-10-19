@@ -14,4 +14,4 @@ install.packages(pckg, dependencies = TRUE)
 
 # Update R ----------------------------------------------------------------
 
-installr::updateR()
+installr::updateR() #only for R dekstop, not for Posit Cloud

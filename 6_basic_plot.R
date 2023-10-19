@@ -17,10 +17,10 @@ glimpse(iris)
 
 # Plot in Base R ----------------------------------------------------------
 
-## Histogram ----
+## 1) Histogram ----
 hist(iris$Sepal.Length)
 
-## Bar plot ----
+## 2) Bar plot ----
 dat <- 
   iris %>% 
   group_by(Species) %>% 
@@ -28,19 +28,19 @@ dat <-
 
 barplot(height = dat$mean_Sepal.Length, names = dat$Species)
 
-## Box plot ----
+## 3) Box plot ----
 bx_plt <- boxplot(iris$Sepal.Width)
 bx_plt$out
 
 boxplot.stats(iris$Sepal.Width)
 
-## Scatter plot ----
+## 4) Scatter plot ----
 plot(iris$Sepal.Length, iris$Sepal.Width)
 
 
 # ggplot2 -----------------------------------------------------------------
 
-## histogram ----
+## 1) histogram ----
 ggplot(data = iris, aes(x = Sepal.Length)) +
   geom_histogram()
 
@@ -54,11 +54,11 @@ ggplot(data = iris, aes(x = Sepal.Length, fill = Species, color = Species)) +
   geom_histogram(alpha = 0.6) +
   theme_bw()
 
-## Bar plot ----
+## 2) Bar plot ----
 ggplot(data = iris, aes(x = Species)) +
     geom_bar()
 
-## Box plot ----
+## 3) Box plot ----
 bx_ggplot <- 
     ggplot(data = iris, aes(y = Sepal.Width)) +
     geom_boxplot()
@@ -73,19 +73,8 @@ ggplot(data = iris, aes(x = Species, y = Sepal.Width)) +
 ggplot(data = iris, aes(y = Sepal.Width)) +
   geom_boxplot() +
   facet_grid(cols = vars(Species))
-  
-ggplot(data = iris, aes(x = Species, y = Sepal.Width)) +
-  geom_boxplot() +
-  stat_summary(aes(label = row.names(iris) %>% as.vector()),
-               geom = "text", 
-               fun = function(y) { o <- boxplot.stats(y)$out; if(length(o) == 0) NA else o },
-               hjust = -1
-               )
 
-
-
-
-## Scatter plot ----
+## 4) Scatter plot ----
 ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
   geom_point() 
 
